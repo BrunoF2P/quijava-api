@@ -21,11 +21,6 @@ const createCategory = async (req, res, next) => {
             return res.status(403).json({ success: false, message: 'Permissão negada para criar categorias' });
         }
 
-        // Validar a descrição da categoria
-        if (!description || !/^[a-zA-Z0-9 ]+$/.test(description)) {
-            return res.status(400).json({ success: false, message: 'A descrição da categoria não pode ser nula e não pode conter caracteres especiais' });
-        }
-
         // Verificar se a descrição da categoria já existe
         const existingCategory = await models.categories.findOne({ where: { description } });
         if (existingCategory) {
@@ -42,5 +37,18 @@ const createCategory = async (req, res, next) => {
     }
 };
 
+const getAllCategories = async (req, res, next) => {
+    try {
+        // Buscar todas as categorias do banco de dados
+        const categories = await models.categories.findAll();
 
-module.exports = { createCategory };
+        // Retornar as categorias encontradas na resposta
+        return res.status(200).json({ success: true, categories });
+    } catch (error) {
+        // Se ocorrer algum erro, repasse para o próximo middleware de tratamento de erro
+        return next(error);
+    }
+};
+
+
+module.exports = { createCategory, getAllCategories };
