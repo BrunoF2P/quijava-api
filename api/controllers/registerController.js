@@ -30,7 +30,7 @@ const registerUser = async (req, res) => {
         const user = await models.users.create({ username, password: hashedPassword });
 
         // Gerar token JWT
-        const payload = {username: user.username.trim(), user_id: user.user_id };
+        const payload = {username: user.username, userId: user.userId };
 
         const token = jwt.sign(payload, jwtConfig.secret, { expiresIn: jwtConfig.expiresIn, algorithm: jwtConfig.algorithm });
 
