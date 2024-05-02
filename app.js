@@ -8,6 +8,7 @@ const indexRouter = require('./api/routes/indexRoutes');
 const registerRoutes = require('./api/routes/registerRoutes');
 const loginRoutes = require('./api/routes/loginRoutes');
 const categoryRoutes = require('./api/routes/categoryRoutes');
+const quizRoutes = require('./api/routes/quizRoutes');
 
 const app = express();
 
@@ -24,6 +25,7 @@ app.use(indexRouter);
 app.use(registerRoutes)
 app.use(loginRoutes)
 app.use(categoryRoutes)
+app.use(quizRoutes)
 
 
 module.exports = app;
